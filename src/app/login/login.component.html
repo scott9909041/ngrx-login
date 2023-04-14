@@ -1,0 +1,31 @@
+<h1>Log in</h1>
+<br>
+<form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <input type="text" name="username" placeholder="User name" formControlName="username">
+    <input type="password" name="password" placeholder="Password" formControlName="password">
+    <button>Log in</button>
+</form>
+
+<h1>Monitor</h1>
+
+<!-- Status -->
+<section>
+    <h3>Is Logged in: {{ isLoggedIn$ | async }}</h3>
+    <ng-container *ngIf="isLoading$ | async">
+        <h3>API is loading...</h3>
+    </ng-container>
+</section>
+
+<!-- Results -->
+<section>
+    <ng-container *ngIf="hasError$ | async">
+        <h3>Error!</h3>
+        <p>Message: {{ errorMsg$ | async }}</p>
+    </ng-container>
+    
+    <ng-container *ngIf="user$ | async">
+        <h3>User information</h3>
+        <p>First name: {{ (user$ | async)?.firstName }}</p>
+        <p>Last name: {{ (user$ | async)?.lastName }}</p>
+    </ng-container>
+</section>
